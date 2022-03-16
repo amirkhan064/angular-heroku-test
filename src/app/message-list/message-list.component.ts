@@ -22,7 +22,7 @@ import { Constants } from '../shared/constants';
     trigger('messageCardAnimator', [
       transition(
         '* => slideOutRight',
-        animate(1500, keyframes(kf.slideOutRight))
+        animate(500, keyframes(kf.slideOutRight))
       ),
     ]),
   ],
