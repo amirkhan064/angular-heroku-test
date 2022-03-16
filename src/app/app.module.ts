@@ -16,8 +16,11 @@ import {
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
-  public test = <any>{
-    swipe: { direction: Hammer.DIRECTION_ALL },
+  overrides = <any>{
+    // It will only use the swap gesture so
+    // It will deactivate the others to avoid overlaps
+    pinch: { enable: false },
+    rotate: { enable: false },
   };
 }
 
