@@ -1,0 +1,27 @@
+<main
+  class="message-container"
+  infinite-scroll
+  [scrollWindow]="false"
+  (scrolled)="onScrollDown($event)"
+>
+  <div
+    class="message-card"
+    *ngFor="let message of messageListData; let i = index"
+    [@cardAnimator]="animationState[i]"
+    (@cardAnimator.done)="resetAnimationState(i)"
+    (swiperight)="startAnimation('slideOutRight', i)"
+  >
+    <div class="profile-sec">
+      <div class="profile-img">
+        <img src="{{ baseURL + message?.author?.photoUrl }}" />
+      </div>
+      <div class="profile-text">
+        <div class="profile-name">{{ message?.author?.name }}</div>
+        <div class="message-time">
+          {{ message?.updated | date: "longDate" }}
+        </div>
+      </div>
+    </div>
+    <p class="message-description">{{ message?.content }}</p>
+  </div>
+</main>
