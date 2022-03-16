@@ -7,13 +7,16 @@
   <div
     class="message-card"
     *ngFor="let message of messageListData; let i = index"
-    [@cardAnimator]="animationState[i]"
-    (@cardAnimator.done)="resetAnimationState(i)"
+    [@messageCardAnimator]="animationState[i]"
+    (@messageCardAnimator.done)="resetAnimationState(i)"
     (swiperight)="startAnimation('slideOutRight', i)"
   >
     <div class="profile-sec">
       <div class="profile-img">
-        <img src="{{ baseURL + message?.author?.photoUrl }}" />
+        <img
+          src="{{ baseURL + message?.author?.photoUrl }}"
+          alt="{{ message?.author?.name + ' ' + user + ' ' + i }}"
+        />
       </div>
       <div class="profile-text">
         <div class="profile-name">{{ message?.author?.name }}</div>
