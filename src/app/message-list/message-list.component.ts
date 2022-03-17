@@ -1,6 +1,11 @@
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { Component, OnInit } from '@angular/core';
-import { MessageList, MessageListItem } from '../model/messageList';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+} from '@angular/core';
+import { MessageListItem } from '../model/messageList';
 import { MessageListService } from '../services/message-list.service';
 import * as kf from '../shared/keyframes';
 import {
@@ -22,7 +27,7 @@ import { Constants } from '../shared/constants';
     trigger('messageCardAnimator', [
       transition(
         '* => slideOutRight',
-        animate(500, keyframes(kf.slideOutRight))
+        animate(800, keyframes(kf.slideOutRight))
       ),
     ]),
   ],
@@ -30,9 +35,9 @@ import { Constants } from '../shared/constants';
 export class MessageListComponent implements OnInit {
   private currentToken = '';
   public messageListData = Array<MessageListItem>();
-  public baseURL = Constants.baseURL;
   public animationState: Array<string> = [];
   public ifEndResult = false;
+  public showToast = false;
 
   constructor(private messageListService: MessageListService) {}
 
@@ -42,8 +47,8 @@ export class MessageListComponent implements OnInit {
   }
 
   // load the data for messageList and keep merging until user reach to the last page.
-  private loadMessageList() {
-    this.messageListService
+  async loadMessageList() {
+    await this.messageListService
       .getMessageList(this.currentToken)
       .subscribe((res: any) => {
         if (!res?.errorCode) {
@@ -79,9 +84,16 @@ export class MessageListComponent implements OnInit {
     if (this.animationState[index] == 'slideOutRight') {
       this.messageListData.splice(index, 1);
       this.animationState.splice(index, 1);
+      this.showToast = true;
+      this.hideToast();
     }
   }
 
+  private hideToast() {
+    setTimeout(() => {
+      this.showToast = false;
+    }, 2000);
+  }
   // check if use reaches to the bottom of the page.
   onScrollDown(ev: any) {
     console.log('scrolled down!!', ev);

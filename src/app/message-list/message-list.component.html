@@ -4,27 +4,16 @@
   [scrollWindow]="false"
   (scrolled)="onScrollDown($event)"
 >
-  <div
-    class="message-card"
-    *ngFor="let message of messageListData; let i = index"
-    [@messageCardAnimator]="animationState[i]"
-    (@messageCardAnimator.done)="resetAnimationState(i)"
-    (swiperight)="startAnimation('slideOutRight', i)"
-  >
-    <div class="profile-sec">
-      <div class="profile-img">
-        <img
-          src="{{ baseURL + message?.author?.photoUrl }}"
-          alt="{{ message?.author?.name + ' ' + user + ' ' + i }}"
-        />
-      </div>
-      <div class="profile-text">
-        <div class="profile-name">{{ message?.author?.name }}</div>
-        <div class="message-time">
-          {{ message?.updated | date: "longDate" }}
-        </div>
-      </div>
+  <app-toast-notification [showToast]="showToast"></app-toast-notification>
+  <ng-container *ngIf="messageListData?.length">
+    <div
+      class="message-card animate-repeat"
+      *ngFor="let message of messageListData; let i = index"
+      [@messageCardAnimator]="animationState[i]"
+      (@messageCardAnimator.done)="resetAnimationState(i)"
+      (swiperight)="startAnimation('slideOutRight', i)"
+    >
+      <app-message-card [message]="message" [index]="i"></app-message-card>
     </div>
-    <p class="message-description">{{ message?.content }}</p>
-  </div>
+  </ng-container>
 </main>

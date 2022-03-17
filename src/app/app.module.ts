@@ -13,6 +13,8 @@ import {
   HammerGestureConfig,
   HAMMER_GESTURE_CONFIG,
 } from '@angular/platform-browser';
+import { MessageCardComponent } from './message-card/message-card.component';
+import { ToastNotificationComponent } from './toast-notification/toast-notification.component';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -25,7 +27,7 @@ export class MyHammerConfig extends HammerGestureConfig {
 }
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, MessageListComponent],
+  declarations: [AppComponent, HeaderComponent, MessageListComponent, MessageCardComponent, ToastNotificationComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

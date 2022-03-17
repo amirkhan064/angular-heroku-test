@@ -1,0 +1,26 @@
+<div class="profile-sec">
+  <div class="profile-img">
+    <img
+      src="{{ baseURL + message?.author?.photoUrl }}"
+      alt="{{ message?.author?.name + ' ' + 'user' + ' ' }}"
+    />
+  </div>
+  <div class="profile-text">
+    <div class="profile-name">{{ message?.author?.name }}</div>
+    <div class="message-time">
+      {{ message?.updated | date: "longDate" }}
+    </div>
+  </div>
+</div>
+<p class="message-description" #title>
+  <span [ngClass]="{ maxHeightEllipsis: !isCollapsed }">{{
+    message?.content
+  }}</span>
+  <span
+    (click)="isCollapsed = !isCollapsed"
+    *ngIf="showReadMore"
+    class="read-more"
+  >
+    {{ isCollapsed ? "Read less" : "Read more" }}
+  </span>
+</p>
