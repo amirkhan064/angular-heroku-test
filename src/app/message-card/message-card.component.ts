@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MessageListItem } from '../model/messageList';
 import { Constants } from '../shared/constants';
 
@@ -16,6 +16,7 @@ export class MessageCardComponent implements OnInit {
   public showReadMore = false;
   @Input() message: MessageListItem;
   @Input() index;
+  @Output() deleteMessageEvent = new EventEmitter();;
   constructor() {}
 
   ngOnInit(): void {}
@@ -23,6 +24,9 @@ export class MessageCardComponent implements OnInit {
   ngAfterViewInit() {
     let height = this.title.nativeElement.offsetHeight;
     this.showReadMore = height >= this.contentHeight ? true : false;
-    console.log('show Read more ', this.showReadMore);
+  }
+
+  deleteMessage() {
+    this.deleteMessageEvent.emit(this.index);
   }
 }

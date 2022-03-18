@@ -75,12 +75,7 @@ export class MessageListComponent implements OnInit {
 
     // Swipe right will remove the element from the messageList and also removes the animationState for the same index.
     if (this.animationState[index] == 'slideOutRight') {
-      const tempItem = this.messageListData.splice(index, 1);
-      const tempState = this.animationState.splice(index, 1);
-      // Show confirmation message with undo option.
-      this.showToast = true;
-      this.hideToast();
-      this.setTempItems(tempItem, tempState, index);
+      this.deleteMessage(index)
     }
   }
 
@@ -100,7 +95,7 @@ export class MessageListComponent implements OnInit {
     // Show confirmation toast message after 2 seconds.
     setTimeout(() => {
       this.showToast = false;
-    }, 2000);
+    }, 2500);
   }
 
   // check if use reaches to the bottom of the page.
@@ -115,5 +110,14 @@ export class MessageListComponent implements OnInit {
     this.messageListData.splice(
       this.tempDeletedItem['index'], 0 , this.tempDeletedItem['item'][0]
     )
+  }
+
+  deleteMessage(index) {
+    const tempItem = this.messageListData.splice(index, 1);
+    const tempState = this.animationState.splice(index, 1);
+    // Show confirmation message with undo option.
+    this.showToast = true;
+    this.hideToast();
+    this.setTempItems(tempItem, tempState, index);
   }
 }
