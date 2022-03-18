@@ -77,13 +77,14 @@ export class MessageListComponent implements OnInit {
     if (this.animationState[index] == 'slideOutRight') {
       const tempItem = this.messageListData.splice(index, 1);
       const tempState = this.animationState.splice(index, 1);
+      // Show confirmation message with undo option.
       this.showToast = true;
       this.hideToast();
-      console.log('delted items', tempItem);
       this.setTempItems(tempItem, tempState, index);
     }
   }
 
+  // Set temp State and deleted items for undo option.
   private setTempItems(item, state, index) {
     this.tempDeletedItem = {
       item: item,
@@ -96,23 +97,23 @@ export class MessageListComponent implements OnInit {
   }
 
   private hideToast() {
+    // Show confirmation toast message after 2 seconds.
     setTimeout(() => {
       this.showToast = false;
     }, 2000);
   }
+
   // check if use reaches to the bottom of the page.
   onScrollDown(ev: any) {
     console.log('scrolled down!!', ev);
     this.loadMessageList();
   }
 
+  // undo the deleted items once click on undo text.
   undoItem(undo) {
     console.log('undo', undo);
     this.messageListData.splice(
       this.tempDeletedItem['index'], 0 , this.tempDeletedItem['item'][0]
     )
-    // this.animationState.splice(
-    //   this.tempDeletedState['index'], 0 , this.tempDeletedState['item']
-    // )
   }
 }
