@@ -1,23 +1,23 @@
+
 <app-loader *ngIf="showLoader"></app-loader>
+
+<!-- infinite scroll -->
 <main
   class="message-container"
   infinite-scroll
   [scrollWindow]="false"
   [infiniteScrollThrottle]="50"
-  (scrolled)="onScrollDown($event)"
->
-  <app-toast-notification
-    [showToast]="showToast"
-    (undoItem)="undoItem($event)"
-  ></app-toast-notification>
+  (scrolled)="onScrollDown($event)">
+
+  <app-toast-notification [showToast]="showToast" (undoItem)="undoItem($event)"></app-toast-notification>
+
   <ng-container *ngIf="messageListData?.length">
     <div
       class="message-card animate-repeat"
       *ngFor="let message of messageListData; let i = index"
       [@messageCardAnimator]="animationState[i]"
       (@messageCardAnimator.done)="resetAnimationState(i)"
-      (swiperight)="startAnimation('slideOutRight', i)"
-    >
+      (swiperight)="startAnimation('slideOutRight', i)">
       <app-message-card [message]="message" [index]="i"></app-message-card>
     </div>
   </ng-container>
