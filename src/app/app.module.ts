@@ -15,19 +15,26 @@ import {
 } from '@angular/platform-browser';
 import { MessageCardComponent } from './message-card/message-card.component';
 import { ToastNotificationComponent } from './toast-notification/toast-notification.component';
+import { LoaderComponent } from './shared/loader/loader.component';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
-    // It will only use the swap gesture so
-    // It will deactivate the others to avoid overlaps
+    // It will only use the swap gesture and deactivate the others to avoid overlaps
     pinch: { enable: false },
     rotate: { enable: false },
   };
 }
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, MessageListComponent, MessageCardComponent, ToastNotificationComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    MessageListComponent,
+    MessageCardComponent,
+    ToastNotificationComponent,
+    LoaderComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,

@@ -1,7 +1,9 @@
+<app-loader *ngIf="showLoader"></app-loader>
 <main
   class="message-container"
   infinite-scroll
   [scrollWindow]="false"
+  [infiniteScrollThrottle]="50"
   (scrolled)="onScrollDown($event)"
 >
   <app-toast-notification

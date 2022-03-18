@@ -1,23 +1,9 @@
 import {
-  Component,
-  ElementRef,
-  OnInit,
-  AfterViewInit,
-  ViewChild,
-} from '@angular/core';
+  Component, OnInit} from '@angular/core';
 import { MessageListItem } from '../model/messageList';
 import { MessageListService } from '../services/message-list.service';
 import * as kf from '../shared/keyframes';
-import {
-  trigger,
-  query,
-  group,
-  keyframes,
-  animate,
-  transition,
-  style,
-} from '@angular/animations';
-import { Constants } from '../shared/constants';
+import { trigger, keyframes, animate,transition } from '@angular/animations';
 
 @Component({
   selector: 'app-message-list',
@@ -40,6 +26,7 @@ export class MessageListComponent implements OnInit {
   public showToast = false;
   public tempDeletedItem = {};
   public tempDeletedState = {};
+  public showLoader = false;
 
   constructor(private messageListService: MessageListService) {}
 
@@ -49,10 +36,14 @@ export class MessageListComponent implements OnInit {
   }
 
   // load the data for messageList and keep merging until user reach to the last page.
-  async loadMessageList() {
-    await this.messageListService
+ private loadMessageList() {
+    // show loader when API call happen
+    this.showLoader = true;
+     this.messageListService
       .getMessageList(this.currentToken)
       .subscribe((res: any) => {
+      // Hide loader as soon as api response is received
+        this.showLoader = false;
         if (!res?.errorCode) {
           // check if user reaches to the last page.
           this.ifEndResult = this.currentToken === res.pageToken ? true : false;
@@ -88,6 +79,7 @@ export class MessageListComponent implements OnInit {
       const tempState = this.animationState.splice(index, 1);
       this.showToast = true;
       this.hideToast();
+      console.log('delted items', tempItem);
       this.setTempItems(tempItem, tempState, index);
     }
   }
@@ -116,5 +108,11 @@ export class MessageListComponent implements OnInit {
 
   undoItem(undo) {
     console.log('undo', undo);
+    this.messageListData.splice(
+      this.tempDeletedItem['index'], 0 , this.tempDeletedItem['item'][0]
+    )
+    // this.animationState.splice(
+    //   this.tempDeletedState['index'], 0 , this.tempDeletedState['item']
+    // )
   }
 }
