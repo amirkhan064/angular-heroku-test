@@ -112,6 +112,11 @@ export class MessageListComponent implements OnInit {
     )
   }
 
+  deleteMessageEvent(index) {
+    this.animationState[index] = 'slideOutRight';
+      this.deleteMessage(index);
+  }
+
   deleteMessage(index) {
     const tempItem = this.messageListData.splice(index, 1);
     const tempState = this.animationState.splice(index, 1);

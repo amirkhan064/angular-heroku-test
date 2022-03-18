@@ -18,7 +18,7 @@
       [@messageCardAnimator]="animationState[i]"
       (@messageCardAnimator.done)="resetAnimationState(i)"
       (swiperight)="startAnimation('slideOutRight', i)">
-      <app-message-card [message]="message" [index]="i" (deleteMessageEvent)="deleteMessage($event)"></app-message-card>
+      <app-message-card [message]="message" [index]="i" (deleteMessageEvent)="deleteMessageEvent($event)"></app-message-card>
     </div>
   </ng-container>
 </main>
