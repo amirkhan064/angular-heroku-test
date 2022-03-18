@@ -4,7 +4,10 @@
   [scrollWindow]="false"
   (scrolled)="onScrollDown($event)"
 >
-  <app-toast-notification [showToast]="showToast"></app-toast-notification>
+  <app-toast-notification
+    [showToast]="showToast"
+    (undoItem)="undoItem($event)"
+  ></app-toast-notification>
   <ng-container *ngIf="messageListData?.length">
     <div
       class="message-card animate-repeat"

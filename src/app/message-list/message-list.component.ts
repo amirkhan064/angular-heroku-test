@@ -38,6 +38,8 @@ export class MessageListComponent implements OnInit {
   public animationState: Array<string> = [];
   public ifEndResult = false;
   public showToast = false;
+  public tempDeletedItem = {};
+  public tempDeletedState = {};
 
   constructor(private messageListService: MessageListService) {}
 
@@ -82,11 +84,23 @@ export class MessageListComponent implements OnInit {
 
     // Swipe right will remove the element from the messageList and also removes the animationState for the same index.
     if (this.animationState[index] == 'slideOutRight') {
-      this.messageListData.splice(index, 1);
-      this.animationState.splice(index, 1);
+      const tempItem = this.messageListData.splice(index, 1);
+      const tempState = this.animationState.splice(index, 1);
       this.showToast = true;
       this.hideToast();
+      this.setTempItems(tempItem, tempState, index);
     }
+  }
+
+  private setTempItems(item, state, index) {
+    this.tempDeletedItem = {
+      item: item,
+      index,
+    };
+    this.tempDeletedState = {
+      item: state,
+      index,
+    };
   }
 
   private hideToast() {
@@ -98,5 +112,9 @@ export class MessageListComponent implements OnInit {
   onScrollDown(ev: any) {
     console.log('scrolled down!!', ev);
     this.loadMessageList();
+  }
+
+  undoItem(undo) {
+    console.log('undo', undo);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-toast-notification',
@@ -7,8 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ToastNotificationComponent implements OnInit {
   @Input() showToast = false;
+  @Output() undoItem = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  undoDeletedItem() {
+    this.undoItem.emit(true);
+  }
 }
