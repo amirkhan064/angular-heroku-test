@@ -96,7 +96,7 @@ export class MessageListComponent implements OnInit {
     // Show confirmation toast message after 2 seconds.
     setTimeout(() => {
       this.showToast = false;
-    }, 2500);
+    }, 1500);
   }
 
   // check if use reaches to the bottom of the page.
