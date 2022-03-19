@@ -12,7 +12,7 @@ export class MessageCardComponent implements OnInit {
 
   public baseURL = Constants.baseURL;
   public isCollapsed = false;
-  public contentHeight: number = 73;
+  public contentHeight: number = 60;
   public showReadMore = false;
   @Input() message: MessageListItem;
   @Input() index;

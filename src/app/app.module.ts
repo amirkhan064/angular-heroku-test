@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { Injectable, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MessageListComponent } from './message-list/message-list.component';
@@ -16,6 +17,8 @@ import {
 import { MessageCardComponent } from './message-card/message-card.component';
 import { ToastNotificationComponent } from './toast-notification/toast-notification.component';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { LoginComponent } from './login/login.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -33,7 +36,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     MessageListComponent,
     MessageCardComponent,
     ToastNotificationComponent,
-    LoaderComponent
+    LoaderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     HammerModule,
     BrowserAnimationsModule,
     InfiniteScrollModule,
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [
     {
