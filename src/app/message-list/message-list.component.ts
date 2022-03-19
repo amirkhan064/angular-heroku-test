@@ -4,6 +4,7 @@ import { MessageListItem } from '../model/messageList';
 import { MessageListService } from '../services/message-list.service';
 import * as kf from '../shared/keyframes';
 import { trigger, keyframes, animate,transition } from '@angular/animations';
+import { Constants } from '../shared/constants';
 
 @Component({
   selector: 'app-message-list',
@@ -12,7 +13,7 @@ import { trigger, keyframes, animate,transition } from '@angular/animations';
   animations: [
     trigger('messageCardAnimator', [
       transition(
-        '* => slideOutRight',
+        `* => ${Constants.ACTION_slideOutRight}`,
         animate(800, keyframes(kf.slideOutRight))
       ),
     ]),
@@ -74,7 +75,7 @@ export class MessageListComponent implements OnInit {
     }
 
     // Swipe right will remove the element from the messageList and also removes the animationState for the same index.
-    if (this.animationState[index] == 'slideOutRight') {
+    if (this.animationState[index] == Constants.ACTION_slideOutRight) {
       this.deleteMessage(index)
     }
   }
@@ -101,7 +102,9 @@ export class MessageListComponent implements OnInit {
   // check if use reaches to the bottom of the page.
   onScrollDown(ev: any) {
     console.log('scrolled down!!', ev);
-    this.loadMessageList();
+    if(!this.ifEndResult) {
+      this.loadMessageList();
+    }
   }
 
   // undo the deleted items once click on undo text.
@@ -113,7 +116,7 @@ export class MessageListComponent implements OnInit {
   }
 
   deleteMessageEvent(index) {
-    this.animationState[index] = 'slideOutRight';
+    this.animationState[index] = Constants.ACTION_slideOutRight;
       this.deleteMessage(index);
   }
 
